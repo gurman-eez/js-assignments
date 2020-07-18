@@ -112,36 +112,225 @@ function fromJSON(proto, json) {
  *
  *  For more examples see unit tests.
  */
+// class CssSel {
+// 	constructor() {
+// 		this._way = "";
+// 	}
+
+	
+
+
+// 	element(e) {
+// 		if (this._elem) {
+// 			throw new Error ('Element, id and pseudo-element should not take place more then one time inside the selector!')
+// 		}
+// 		this.check('element');
+// 		this._elem = e;
+// 		this.toWay(this._elem);
+// 		return this;
+// 	}
+
+// 	id(e) {
+// 		if (this._id) {
+// 			throw new Error('"Element", "id" and "pseudo-element" should not take place more then one time inside the selector!')
+// 		}
+// 		this.check('id');
+// 		this._id = `#${e}`;
+// 		this.toWay(this.id);
+// 		return this;
+// 	}
+
+// 	class(e) {
+// 		if (this._class) {
+// 			throw new Error('"Element", "id" and "pseudo-element" should not take place more then one time inside the selector!')
+// 		}
+// 		this.check('id');
+// 		this._class = `.${e}`;
+// 		this.toWay(this.class);
+// 		return this;
+// 	}
+
+// 	attribute(e) {
+// 		if (this._attribute) {
+// 			throw new Error('"Element", "id" and "pseudo-element" should not take place more then one time inside the selector!')
+// 		}
+// 		this.check('id');
+// 		this._attribute = `[${e}]`;
+// 		this.toWay(this.attribute);
+// 		return this;
+// 	}
+
+// 	pseudoClass(e) {
+// 		if (this._pseudoClass) {
+// 			throw new Error('Error')
+// 		}
+// 		this.check('id');
+// 		this._pseudoClass = `:${e}`;
+// 		this.toWay(this.pseudoClass);
+// 		return this;
+// 	}
+
+// 	pseudoElement(e) {
+// 		if (this._pseudoElement) {
+// 			throw new Error('Error')
+// 		}
+// 		this.check('id');
+// 		this._pseudoElement = `::${e}`;
+// 		this.toWay(this.pseudoElement);
+// 		return this;
+// 	}
+
+// 	check(e) {
+// 		const arr = ['element', 'id', 'class', 'attribute', 'pseudoClass', 'pseudoElement'];
+// 		if (arr.slice(arr.findIndex(elem => elem === e) + 1).some(elem => this[`_${elem}`])) {
+// 			throw new Error(`Selector parts should be in the following order: 1.element, 2.id, 3.class, 4.attribute, 5.pseudo-class, 6.pseudo-element`)
+// 		}
+// 	}
+
+// 	toWay(e) {
+// 		this._way += e;
+// 	}
+
+// 	stringify() {
+// 		return this._way;
+// 	}
+
+// }
+
+// class CssSelCombined {
+// 	constructor (sel1, comb, sel2) {
+// 		this.sel1 = sel1;
+// 		this.comb = comb;
+// 		this.sel2 = sel2;
+// 	}
+
+// 	stringify() {
+// 		return `${this.sel1.stringify()}${this.comb}${this.sel2.stringify()}`;
+// 	}
+// }
+
+
+class CssWay {
+	constructor() {
+		this._way = '';
+	}
+
+	check(x) {
+		const order = ['element', 'id', 'class', 'attr', 'pseudoClass', 'pseudoElement'];
+		if (order.slice(order.findIndex(elem => elem === x) + 1).some(elem => this[`_${elem}`])) {
+			throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+		}
+	}
+
+	element(x) {
+		if (this._element) {
+			throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+		}
+		this.check('element');
+		this._element = x;
+		this.addToPath(this._element);
+		return this;
+	}
+
+	id(x) {
+		if (this._id) {
+			throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+		}
+		this.check('id');
+		this._id = `#${x}`;
+		this.addToPath(this._id);
+		return this;
+	}
+
+	pseudoElement(x) {
+		if (this._pseudoElement) {
+			throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+		}
+		this.check('pseudoElement');
+		this._pseudoElement = `::${x}`;
+		this.addToPath(this._pseudoElement);
+		return this;
+	}
+
+	class(x) {
+		this.check('class');
+		this._class = `.${x}`;
+		this.addToPath(this._class);
+		return this;
+	}
+
+	attr(x) {
+		this.check('attr');
+		this._attr = `[${x}]`;
+		this.addToPath(this._attr);
+		return this;
+	}
+
+	pseudoClass(x) {
+		this.check('pseudoClass');
+		this._pseudoClass = `:${x}`;
+		this.addToPath(this._pseudoClass);
+		return this;
+	}
+
+	
+
+	addToPath(x) {
+		this._way += x;
+	}
+
+	stringify() {
+		return this._way;
+	}
+}
+
+class CssWayComb {
+	constructor(sel1, comb, sel2) {
+		this.sel1 = sel1;
+		this.comb = comb;
+		this.sel2 = sel2;
+	}
+
+	stringify() {
+		return `${this.sel1.stringify()} ${this.comb} ${this.sel2.stringify()}`;
+	}
+}
 
 const cssSelectorBuilder = {
 
     element: function(value) {
 		//   throw new Error('Not implemented');
-		return new S
+		return new CssWay().element(value);
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+		//   throw new Error('Not implemented');
+		 return new CssWay().id(value);
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+		//   throw new Error('Not implemented');
+		 return new CssWay().class(value);
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+		//   throw new Error('Not implemented');
+		 return new CssWay().attr(value);
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+		//   throw new Error('Not implemented');
+		 return new CssWay().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+		//   throw new Error('Not implemented');
+		 return new CssWay().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+		//   throw new Error('Not implemented');
+		return new CssWayComb(selector1, combinator, selector2);
     },
 };
 
