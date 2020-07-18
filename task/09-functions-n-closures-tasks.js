@@ -4,7 +4,8 @@
  *                                                                                            *
  * Plese read the following tutorial before implementing tasks:                               *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions                    *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function  *
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refunction f() {
+ * return function ference/Global_Objects/Function  *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments      *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures                           *
  *                                                                                            *
@@ -26,9 +27,11 @@
  *
  */
 function getComposition(f,g) {
-    throw new Error('Not implemented');
-}
-
+	//  throw new Error('Not implemented');
+	return (x) => {
+		return f(g(x));
+	}
+}		
 
 /**
  * Returns the math power function with the specified exponent
@@ -47,7 +50,10 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    throw new Error('Not implemented');
+	//  throw new Error('Not implemented');
+	return (x) => {
+		return Math.pow(x, exponent);
+	}
 }
 
 
@@ -65,7 +71,17 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    throw new Error('Not implemented');
+	//  throw new Error('Not implemented');
+	return (x) => {
+		const aL = arguments.length;
+		let y = 0;
+
+		for (let i = 0; i < aL; i++) {
+			y += arguments[i] * Math.pow(x, aL - (i + 1));
+		}
+		return y;
+	}
+
 }
 
 
@@ -84,7 +100,9 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+	//  throw new Error('Not implemented');
+	let mem = func();
+	return () => mem;
 }
 
 
@@ -104,7 +122,18 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    throw new Error('Not implemented');
+	//  throw new Error('Not implemented');
+	return () => {
+		for (let i = 0; i <= attempts; i++) {
+			try {
+				return func();
+			} catch (_) {
+				if (attempts === i) {
+					throw new Error('fulyError');
+				}
+			}
+		}
+	}
 }
 
 
@@ -132,7 +161,16 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    throw new Error('Not implemented');
+	//  throw new Error('Not implemented');
+	return function () {
+		let args = JSON.stringify(Array.from(arguments));
+		args = args.slice(1, args.length - 1);
+		const logStr = `${func.name}(${args})`;
+		logFunc(`${logStr} starts`);
+		const res = func(...arguments);
+		logFunc(`${logStr} ends`);
+		return res;
+	}
 }
 
 
@@ -150,7 +188,11 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    throw new Error('Not implemented');
+	//  throw new Error('Not implemented');
+	let arg = Array.from(arguments).slice(1);
+	return function () {
+		return fn.apply(null, arg.concat(Array.from(arguments)));
+	}
 }
 
 
@@ -171,7 +213,8 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    throw new Error('Not implemented');
+	//  throw new Error('Not implemented');
+	return () => startFrom++;
 }
 
 
