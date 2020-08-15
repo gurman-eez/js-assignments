@@ -27,9 +27,8 @@ function Rectangle(width, height) {
 	this.width = width;
 	this.height = height;
 
-	Rectangle.prototype.getArea = () => this.width * this.height;
-	
 }
+Rectangle.prototype.getArea = () => this.width * this.height;
 
 
 /**
@@ -305,27 +304,27 @@ const cssSelectorBuilder = {
 
     id: function(value) {
 		//   throw new Error('Not implemented');
-		 return new CssWay().id(value);
+		return new CssWay().id(value);
     },
 
     class: function(value) {
 		//   throw new Error('Not implemented');
-		 return new CssWay().class(value);
+		return new CssWay().class(value);
     },
 
     attr: function(value) {
 		//   throw new Error('Not implemented');
-		 return new CssWay().attr(value);
+		return new CssWay().attr(value);
     },
 
     pseudoClass: function(value) {
 		//   throw new Error('Not implemented');
-		 return new CssWay().pseudoClass(value);
+		return new CssWay().pseudoClass(value);
     },
 
     pseudoElement: function(value) {
 		//   throw new Error('Not implemented');
-		 return new CssWay().pseudoElement(value);
+		return new CssWay().pseudoElement(value);
     },
 
     combine: function(selector1, combinator, selector2) {
