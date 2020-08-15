@@ -31,11 +31,11 @@
  */
 function getFizzBuzz(num) {
 	//  throw new Error('Not implemented');
-	if ( num % 3 == 0 && num % 5 == 0) {
+	if ( num % 3 === 0 && num % 5 === 0) {
 		return 'FizzBuzz'
-	} else if (num % 5 == 0) {
+	} else if (num % 5 === 0) {
 		return 'Buzz'
-	} else if (num % 3 == 0) {
+	} else if (num % 3 === 0) {
 		return 'Fizz'
 	} else return num
 }
@@ -56,7 +56,7 @@ function getFactorial(n) {
 	//  throw new Error('Not implemented');
 	for (let x = 1, i = 1; i <= n; i++) {
 		x *= i; 
-		if(i == n) return x
+		if(i === n) return x
 	}
 }
 
@@ -78,7 +78,7 @@ function getSumBetweenNumbers(n1, n2) {
 	//  throw new Error('Not implemented');
 	for (let z = 0,i = n1; i <= n2; i++) {
 		z += i;
-		if (i == n2) {
+		if (i === n2) {
 			return z;
 		}
 	}
@@ -219,7 +219,7 @@ function findFirstSingleChar(str) {
 	//  throw new Error('Not implemented');
 	for (let i = 0; i < str.length; i++) {
 		let c = str.charAt(i);
-		if (str.indexOf(c) == i && str.indexOf(c, i + 1) == -1) {
+		if (str.indexOf(c) === i && str.indexOf(c, i + 1) === -1) {
 			return c;
 		}
 	}
@@ -541,7 +541,7 @@ function getCommonDirectoryPath(pathes) {
 	let el = pathes.map(e => e.split("/"))
 	console.log(el)
 	for (let i = 0; i < el[0].length; i++) {
-		if (el.every(e => e[i] == el[0][i])) {
+		if (el.every(e => e[i] === el[0][i])) {
 			res += el[0][i] + "/"
 		} else {
 			break
@@ -614,7 +614,7 @@ function getMatrixProduct(m1, m2) {
 function evaluateTicTacToePosition(position) {
 	//  throw new Error('Not implemented');
 	const check = (a, b, c) => {
-		return (a === b && b === c && a != undefined) ? true : false;
+		return (a === b && b === c && a !== undefined) ? true : false;
 	}
 
 	for (let i = 0; i < 3; i++) {
