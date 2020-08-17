@@ -26,11 +26,8 @@ function Rectangle(width, height) {
 	//  throw new Error('Not implemented');
 	this.width = width;
 	this.height = height;
-
-	Rectangle.prototype.getArea = () => this.width * this.height;
-	
 }
-
+Rectangle.prototype.getArea = () => this.width * this.height;
 
 /**
  * Returns the JSON representation of specified object
